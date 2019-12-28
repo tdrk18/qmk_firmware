@@ -15,9 +15,16 @@ jobs:
             apt-get update
             apt-get install -y ca-certificates
       - run:
-          name: Build keymap
+          name: clean build folder
           command: |
             make clean
+      - run:
+          name: Build keymap for Lily58
+          command: |
             make keyboard=lily58 keymap=default
+      - run:
+          name: Build keymap for ErgoDoxEZ
+          command: |
+            make keyboard=ergodox_ez keymap=default
       - store_artifacts:
-          path: .build/lily58_rev1_default.hex
+          path: .build
