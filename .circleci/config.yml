@@ -1,0 +1,35 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: edasque/qmk_firmware
+    steps:
+      - checkout
+      - run:
+          name: Submodule Pull
+          command: git submodule update --init
+      - run:
+          name: "Workaround `x509: failed to load system roots and no roots provided`"
+          command: |
+            echo "deb http://security.debian.org/debian-security jessie/updates main" >> /etc/apt/sources.list
+            apt-get update
+            apt-get install -y ca-certificates
+      - run:
+          name: clean build folder
+          command: |
+            make clean
+      - run:
+          name: Build keymap for Lily58
+          command: |
+            make keyboard=lily58 keymap=default
+      - run:
+          name: Build keymap for ErgoDoxEZ
+          command: |
+            make keyboard=ergodox_ez keymap=default
+      - run:
+          name: create a zip
+          command: |
+            mv .build artifacts
+            zip -r artifacts.zip artifacts
+      - store_artifacts:
+          path: artifacts.zip
