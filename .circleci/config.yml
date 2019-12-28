@@ -26,5 +26,10 @@ jobs:
           name: Build keymap for ErgoDoxEZ
           command: |
             make keyboard=ergodox_ez keymap=default
+      - run:
+          name: create a zip
+          command: |
+            mv .build artifacts
+            zip -r artifacts.zip artifacts
       - store_artifacts:
-          path: .build
+          path: artifacts.zip
