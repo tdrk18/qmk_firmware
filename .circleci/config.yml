@@ -21,11 +21,11 @@ jobs:
       - run:
           name: Build keymap for Lily58
           command: |
-            make keyboard=lily58 keymap=default
+            make keyboard=lily58 keymap=tdrk18
       - run:
           name: Build keymap for ErgoDoxEZ
           command: |
-            make keyboard=ergodox_ez keymap=default
+            make keyboard=ergodox_ez keymap=tdrk18
       - run:
           name: create a zip
           command: |
